@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
+import { addSmurf } from '../actions/smurfActions';
 
-const SmurfForm = () => {
+const SmurfForm = ({ dispatch }) => {
   const [info, setInfo] = useState({
-    smurfName: '',
-    height: 0
+    name: '',
+    age: '',
+    height: ''
   });
 
   const handleChanges = event => {
@@ -13,14 +15,31 @@ const SmurfForm = () => {
     })
   };
   
+  const sendSmurfInfo = event => {
+    event.preventDefault();
+    dispatch(addSmurf(info));
+    setInfo({
+      name: '',
+      age: 0,
+      height: 0,
+    });
+  };
+
   return (
-    <form>
+    <form onSubmit={sendSmurfInfo}>
       <input
         type="text"
-        name="smurfName"
-        value={info.smurfName}
+        name="name"
+        value={info.name}
         onChange={handleChanges}
         placeholder="Smurf name"
+      />
+      <input
+        type="text"
+        name="age"
+        value={info.age}
+        onChange={handleChanges}
+        placeholder="Age"
       />
       <input
         type="text"
@@ -29,6 +48,7 @@ const SmurfForm = () => {
         onChange={handleChanges}
         placeholder="Height"
       />
+      <button>Add smurf</button>
     </form>
   );
 }
