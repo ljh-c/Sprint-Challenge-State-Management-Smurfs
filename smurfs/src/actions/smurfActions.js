@@ -47,3 +47,13 @@ export const deleteSmurf = smurfId => dispatch => {
     console.log(err);
   })
 }
+
+export const editSmurf = smurfChanges => dispatch => {
+  axios.put(`http://localhost:3333/smurfs/${smurfChanges.id}`, smurfChanges)
+  .then(res => {
+    console.log(res.data);
+  })
+  .catch(err => {
+    console.log(err);
+  })
+};

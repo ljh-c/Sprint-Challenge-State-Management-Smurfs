@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { addSmurf } from '../actions/smurfActions';
 
-const SmurfForm = ({ dispatch }) => {
+const SmurfForm = ({ dispatch, editId }) => {
   const [info, setInfo] = useState({
     name: '',
     age: '',
