@@ -1,4 +1,6 @@
-import { FETCHING_SMURFS_START, FETCHING_SMURFS_SUCCESS, FETCHING_SMURFS_FAILURE, ADD_SMURF_SUCCESS } from '../actions/smurfActions';
+import { 
+  FETCHING_SMURFS_START, FETCHING_SMURFS_SUCCESS, FETCHING_SMURFS_FAILURE, 
+  ADD_SMURF_SUCCESS, DELETE_SMURF_SUCCESS } from '../actions/smurfActions';
 
 const initialState = {
   isFetching: false,
@@ -44,6 +46,12 @@ const smurfReducer = (state = initialState, action) => {
         ...state,
         smurfs: action.payload
       };
+
+    case DELETE_SMURF_SUCCESS:
+      return {
+        ...state,
+        smurfs: action.payload
+      }
 
     default:
       return state;

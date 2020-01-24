@@ -21,7 +21,7 @@ const SmurfVillage = () => {
       {data.smurfs && !data.isFetching && (
         <>
           <SmurfForm dispatch={dispatch} />
-          {data.smurfs.map(smurf => <SmurfCard key={smurf.id} smurf={smurf} />)}
+          {data.smurfs.map(smurf => <SmurfCard key={smurf.id} smurf={smurf} dispatch={dispatch} />)}
         </>
       )}
     </>
