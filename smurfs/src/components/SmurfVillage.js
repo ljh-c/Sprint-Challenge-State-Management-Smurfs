@@ -1,6 +1,7 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchSmurfs } from '../actions/smurfActions';
+import SmurfForm from './SmurfForm';
 import SmurfCard from './SmurfCard';
 
 const SmurfVillage = () => {
@@ -11,7 +12,6 @@ const SmurfVillage = () => {
     <>
       {!data.smurfs && !data.isFetching && (
         <>
-          <br />
           <button onClick={() => dispatch(fetchSmurfs())}>Get Smurfs</button>
         </>
       )}
@@ -20,6 +20,7 @@ const SmurfVillage = () => {
       )}
       {data.smurfs && !data.isFetching && (
         <>
+          <SmurfForm />
           {data.smurfs.map(smurf => <SmurfCard key={smurf.id} smurf={smurf} />)}
         </>
       )}
