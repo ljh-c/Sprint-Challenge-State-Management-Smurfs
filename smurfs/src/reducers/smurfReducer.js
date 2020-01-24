@@ -5,7 +5,9 @@ import {
 const initialState = {
   isFetching: false,
   smurfs: null,
-  error: ''
+  error: '', 
+  editingSmurf: null,
+  isEditing: false
 };
 
 const smurfReducer = (state = initialState, action) => {
@@ -30,17 +32,6 @@ const smurfReducer = (state = initialState, action) => {
         error: action.payload
       };
 
-    // case ADD_SMURF:
-    //   const newId = state.smurfs.length
-
-    //   return {
-    //     ...state,
-    //     smurfs: [...state.smurfs, {
-    //       ...action.payload,
-    //       id: newId
-    //     }]
-    //   };
-
     case ADD_SMURF_SUCCESS:
       return {
         ...state,
@@ -52,6 +43,26 @@ const smurfReducer = (state = initialState, action) => {
         ...state,
         smurfs: action.payload
       }
+
+    case 'STAGE_EDIT':
+      return {
+        ...state,
+        editingSmurf: action.payload,
+        isEditing: true
+      };
+
+    case 'SEND_EDIT':
+      return {
+        ...state,
+        editingSmurf: '', 
+        isEditing: false
+      }
+
+    case 'EDIT_SMURF_SUCCESS':
+      return {
+        ...state,
+        smurfs: action.payload
+      };
 
     default:
       return state;

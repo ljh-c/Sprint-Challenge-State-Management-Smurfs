@@ -1,12 +1,28 @@
-import React, { useState } from 'react';
-import { addSmurf } from '../actions/smurfActions';
+import React, { useState, useEffect } from 'react';
+import { addSmurf, editSmurf } from '../actions/smurfActions';
 
-const SmurfForm = ({ dispatch, editId }) => {
+const SmurfForm = ({ dispatch, editingSmurf, isEditing }) => {
   const [info, setInfo] = useState({
     name: '',
     age: '',
     height: ''
   });
+
+  useEffect(() => {
+    if (!isEditing) {
+      setInfo({
+        name: '',
+        age: '',
+        height: ''
+      })
+    } else {
+      setInfo({
+        name: editingSmurf.name,
+        age: editingSmurf.age,
+        height: editingSmurf.height
+      })
+    }
+  }, [isEditing]);
 
   const handleChanges = event => {
     setInfo({
@@ -20,13 +36,19 @@ const SmurfForm = ({ dispatch, editId }) => {
     dispatch(addSmurf(info));
     setInfo({
       name: '',
-      age: 0,
-      height: 0,
+      age: '',
+      height: '',
     });
   };
 
+  const sendEdit = event => {
+    event.preventDefault();
+    dispatch(editSmurf({...info, id: editingSmurf.id}));
+    dispatch({ type: 'SEND_EDIT'}); // reset form
+  }
+
   return (
-    <form onSubmit={sendSmurfInfo}>
+    <form>
       <input
         type="text"
         name="name"
@@ -48,7 +70,10 @@ const SmurfForm = ({ dispatch, editId }) => {
         onChange={handleChanges}
         placeholder="Height"
       />
-      <button>Add smurf</button>
+      {!isEditing ? (<button onClick={sendSmurfInfo} >Add smurf</button>) :
+      <button onClick={sendEdit} >Edit smurf</button>}
+
+      
     </form>
   );
 }

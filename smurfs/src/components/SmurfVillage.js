@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchSmurfs } from '../actions/smurfActions';
 import SmurfForm from './SmurfForm';
@@ -7,12 +7,6 @@ import SmurfCard from './SmurfCard';
 const SmurfVillage = () => {
   const data = useSelector(state => state);
   const dispatch = useDispatch();
-
-  const [editId, setEditId] = useState('');
-
-  const stageSmurfEdit = (smurfId) => {
-    setEditId(smurfId);
-  }
 
   return (
     <>
@@ -26,8 +20,8 @@ const SmurfVillage = () => {
       )}
       {data.smurfs && !data.isFetching && (
         <>
-          <SmurfForm dispatch={dispatch} editId={editId} />
-          {data.smurfs.map(smurf => <SmurfCard key={smurf.id} smurf={smurf} dispatch={dispatch} stageSmurfEdit={stageSmurfEdit} />)}
+          <SmurfForm dispatch={dispatch} editingSmurf={data.editingSmurf} isEditing={data.isEditing} />
+          {data.smurfs.map(smurf => <SmurfCard key={smurf.id} smurf={smurf} dispatch={dispatch} />)}
         </>
       )}
     </>
